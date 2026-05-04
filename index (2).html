@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3 a.m. kickoff</title>
+  <meta name="description" content="Five short essays about following Barcelona from Shanghai, watching the 2026 World Cup from the host country, and the strange geography of long-distance fandom." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f2f5fa;
+      --ink: #0a1929;
+      --ink-2: #2c3e50;
+      --muted: #6b7785;
+      --line: #d0dae6;
+      --barca-blue: #004D98;
+      --barca-red: #A50044;
+      --max: 800px;
+      --read: 660px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Geist', -apple-system, sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Thin Barça stripe at top */
+    .stripe {
+      height: 4px;
+      background: linear-gradient(to right,
+        var(--barca-blue) 0%, var(--barca-blue) 50%,
+        var(--barca-red) 50%, var(--barca-red) 100%);
+    }
+
+    /* NAV */
+    nav.topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(242, 245, 250, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand a {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.015em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      font-size: 14px;
+    }
+    .nav-links a {
+      color: var(--ink-2);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--barca-blue); }
+
+    /* HERO */
+    header.hero {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 80px 28px 56px;
+    }
+    .hero-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(48px, 8vw, 88px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-weight: 600;
+      margin-bottom: 32px;
+      font-variation-settings: 'opsz' 96;
+    }
+    .hero-title .blue { color: var(--barca-blue); }
+    .hero-title .red { color: var(--barca-red); }
+    .hero-intro {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--ink-2);
+      max-width: 620px;
+    }
+    .hero-intro p + p { margin-top: 1em; }
+
+    /* ESSAY LIST */
+    section.essays-list {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 56px 28px;
+      border-top: 1px solid var(--line);
+    }
+    .list-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      margin-bottom: 28px;
+      color: var(--ink);
+    }
+    .post-list {
+      list-style: none;
+    }
+    .post-item {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 20px;
+      padding: 20px 0;
+      border-top: 1px solid var(--line);
+      text-decoration: none;
+      color: inherit;
+      align-items: baseline;
+      transition: background 0.15s;
+    }
+    .post-list .post-item:last-child { border-bottom: 1px solid var(--line); }
+    .post-item:hover { background: rgba(0, 77, 152, 0.04); }
+    .post-item:hover h3 { color: var(--barca-blue); }
+    .post-num {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    .post-text h3 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 19px;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.015em;
+      margin-bottom: 6px;
+      color: var(--ink);
+      transition: color 0.15s;
+    }
+    .post-text p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ESSAYS */
+    article.essay {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 80px 28px 56px;
+      border-top: 1px solid var(--line);
+    }
+    .essay-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.15;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      margin-bottom: 40px;
+      max-width: var(--read);
+      font-variation-settings: 'opsz' 96;
+    }
+    .essay-body {
+      max-width: var(--read);
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--ink);
+    }
+    .essay-body p { margin-bottom: 1.25em; }
+    .essay-body em { font-style: italic; }
+
+    /* COMMENTATOR QUOTE */
+    .commentator {
+      margin: 36px 0 16px;
+      padding: 0 0 0 24px;
+      border-left: 3px solid var(--barca-red);
+      font-style: italic;
+      color: var(--ink-2);
+    }
+    .commentator p {
+      margin-bottom: 0.9em;
+    }
+    .commentator p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ESSAY NAV */
+    .essay-nav {
+      max-width: var(--read);
+      margin: 56px 0 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-size: 14px;
+    }
+    .essay-nav a {
+      color: var(--ink-2);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .essay-nav a:hover { color: var(--barca-blue); }
+    .essay-nav .next { text-align: right; }
+
+    /* FOOTER */
+    footer {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 64px 28px 48px;
+      border-top: 1px solid var(--line);
+      font-size: 14px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 720px) {
+      body { font-size: 16px; }
+      .nav-inner { padding: 12px 20px; }
+      .nav-links { gap: 16px; font-size: 13px; }
+      header.hero { padding: 56px 20px 40px; }
+      section.essays-list { padding: 40px 20px; }
+      article.essay { padding: 56px 20px 40px; }
+      .essay-body { font-size: 17px; }
+      .commentator { padding-left: 18px; }
+      footer { padding: 48px 20px 32px; }
+    }
+
+    @media print {
+      nav.topbar, .essay-nav, .stripe { display: none; }
+      article.essay { page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stripe"></div>
+
+  <nav class="topbar">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <a href="#top">3 a.m. kickoff</a>
+      </div>
+      <div class="nav-links">
+        <a href="#essays">essays</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <h1 class="hero-title">
+      <span class="blue">3 a.m.</span><br/><span class="red">kickoff</span>
+    </h1>
+    <div class="hero-intro">
+      <p>Hi. i'm James. I grew up in Shanghai watching football matches at late night — the famous Champions League games usually start at 3 a.m. in my time zone — and now i am an upcoming graduate student at USC, living forty minutes from a stadium that's hosting the World Cup this summer.</p>
+      <p>None of these pieces are about tactics. You don't need to know anything about football.</p>
+    </div>
+  </header>
+
+  <section class="essays-list" id="essays">
+    <h2 class="list-title">the essays</h2>
+    <div class="post-list">
+
+      <a class="post-item" href="#essay-1">
+        <div class="post-num">01</div>
+        <div class="post-text">
+          <h3>why i wake up at 3 a.m. for a team i'll never see play</h3>
+          <p>on becoming a barcelona fan from eight time zones away, and the kind of love that only exists when no one's watching.</p>
+        </div>
+      </a>
+
+      <a class="post-item" href="#essay-2">
+        <div class="post-num">02</div>
+        <div class="post-text">
+          <h3>the World Cup is coming to a country that doesn't care (yet)</h3>
+          <p>notes on the slow, strange arrival of the world's biggest tournament in a country that keeps saying "oh, cool" about it.</p>
+        </div>
+      </a>
+
+      <a class="post-item" href="#essay-3">
+        <div class="post-num">03</div>
+        <div class="post-text">
+          <h3>why china keeps failing at football</h3>
+          <p>1.4 billion people, fifteen years of state-level investment, a national team ranked around 90th in the world.</p>
+        </div>
+      </a>
+
+      <a class="post-item" href="#essay-4">
+        <div class="post-num">04</div>
+        <div class="post-text">
+          <h3>the away fan economy</h3>
+          <p>on the global subculture of supporters who'll sell their car to be in a stadium when their country plays — and what 2026 is going to do to them.</p>
+        </div>
+      </a>
+
+      <a class="post-item" href="#essay-5">
+        <div class="post-num">05</div>
+        <div class="post-text">
+          <h3>five weeks out: the tournament i've been waiting for my whole life</h3>
+          <p>a closing piece, written 39 days before the opening match. this time, the roles have flipped.</p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <article class="essay" id="essay-1">
+    <h2 class="essay-title">why i wake up at 3 a.m. for a team i'll never see play</h2>
+    <div class="essay-body">
+      <p>The first time I woke up at 3 a.m. for a football match, I was ten years old, lying on a couch in our home in Shanghai, holding my iPad an inch from my face so the glare wouldn't wake my parents in the next room. Barcelona were playing Real Madrid. I had picked Barcelona six months earlier for the most obvious reason a ten-year-old picks a team: I had watched a YouTube compilation of Messi, and that had been the end of it.</p>
+
+      <p>I remember almost nothing about the match itself. What I remember is the silence of my home, the unreasonable intimacy of watching twenty-two men I'd never meet run around a field eight time zones away while everyone I loved was asleep.</p>
+
+      <p>That's the thing about being a Barcelona fan in China. You don't watch football. You stay up for it. You sneak out of bed for it. You rearrange your whole life around kickoff times that were never designed for you. The afternoon kickoff in Spain is around 10 p.m. in Shanghai — manageable. But the most important matches, the late La Liga slots, the Champions League nights happen at 3 or 4 a.m., and you either learn to live without sleep or learn to live without the sport.</p>
+
+      <p>Most of my peers pick the sport.</p>
+
+      <p>I have tried to explain this to American friends who follow the NBA. They nod politely, then ask why I don't just watch the highlights in the morning. The answer is hard to give, so I usually don't try. But the answer is something like: <em>the sport is better when it costs you something to watch</em>.</p>
+
+      <p>When you watch a match at 3 a.m. in a house where everyone else is asleep, you are not part of an audience. You are a single point of attention in a dark room. The crowd in the stadium is louder than your living room will ever be. The commentary is in a language your parents don't speak. The result will not matter to anyone you see tomorrow. You are doing this for no one, which means you are doing this entirely for yourself, which is a kind of intensity most fandoms in your own country can't reproduce.</p>
+
+      <p>I moved to Los Angeles for college three and a half years ago. The time zones have flipped — the 3 p.m. London match is now 7 a.m. on a Saturday, which my friends find equally ridiculous, just at a different hour. In some ways the sport got easier. In some ways it got harder. The matches are no longer secret. The dorm next door has a Liverpool fan. There is a bar in downtown LA that opens at 4 a.m. for European matches and is, somehow, always full.</p>
+
+      <p>But I miss the silence. I miss the version of fandom that was mine alone. There is a particular kind of love that only exists when no one else is watching, and a Barcelona match in an Asian time zone is one of the last places you can still find it.</p>
+    </div>
+    <nav class="essay-nav">
+      <a href="#essays">↑ back to the list</a>
+      <a href="#essay-2" class="next">next →</a>
+    </nav>
+  </article>
+
+  <article class="essay" id="essay-2">
+    <h2 class="essay-title">the World Cup is coming to a country that doesn't care (yet)</h2>
+    <div class="essay-body">
+      <p>There's a billboard on Sepulveda, a few blocks from SoFi Stadium, that has been advertising the 2026 World Cup since I moved to Los Angeles. For the first two years it was a generic image of a soccer ball superimposed on the Hollywood sign. This spring it changed. Now it shows actual players — Pulisic, I think, and someone in a Mexico shirt — and a countdown that this morning said <em>100 DAYS</em>.</p>
+
+      <p>I noticed it because I always notice it. Most people in the cars around me, I'm guessing, do not.</p>
+
+      <p>This is the strange experience of being a soccer fan in a World Cup host country: the tournament is everywhere, and also nowhere. It's on the sides of buses. It's in the windows of restaurants in Koreatown that are already pre-selling Korea match viewing parties. It's at the soccer aisle in Target, which has expanded by about 40% in the last six months — I checked. But it is not yet, in any way, a thing my classmates talk about. When I tell people I'm going to try to get tickets to a group stage match at SoFi, they say "oh, cool" the same way they would if I told them I was going to a concert by a band they hadn't heard of.</p>
+
+      <p>I find this delightful. I also find it slightly disorienting.</p>
+
+      <p>I grew up watching the World Cup the way most people in the world watch the World Cup: as the largest event in human civilization. The 2010 final between Spain and the Netherlands, watched on a hotel television in Shanghai during a family vacation, was the most-watched broadcast of any kind that year, anywhere on Earth. The 2022 final, watched in a dorm room with my roommate falling asleep on the couch, was the most-watched broadcast in the history of his country and he could not name a single player on either team.</p>
+
+      <p>Americans are not failing at the World Cup; the World Cup is, in some sense, failing at America, and has been for a hundred years. The country has its own sports, its own seasons, its own attention economy, and soccer simply cannot beat football for autumn or basketball for winter. The MLS exists, doing its best, in the gaps the major leagues leave behind.</p>
+
+      <p>But every World Cup converts a small percentage of the country, and a percentage of 330 million is a lot of people. 1994 created an entire generation of American soccer fans. 2002 — the Korea/Japan tournament, played in the middle of the night here. 2026 will be bigger than both, partly because the tournament has been expanded to 48 teams, and partly because, this time, the United States is not just one of three hosts. It is the host. Sixty of the seventy-eight matches are being played here. The final is at MetLife Stadium in New Jersey. The Round of 16 match between, possibly, the United States and Mexico is being played twenty miles from where I'm writing this sentence.</p>
+
+      <p>What I'm most curious about, in the next few months, is whether the country will notice in time. Not whether the tournament will succeed — it will, financially, enormously — but whether the cultural moment will <em>land</em>. Whether an eight-year-old in Inglewood watching Argentina play in his backyard will become a fan for life. Whether the bar in West Hollywood that opens at 4 a.m. for European matches will need a bigger room next year. Whether the soccer aisle at Target will hold its 40% expansion, or whether it will quietly shrink back in October.</p>
+
+      <p>The answer, I think, depends on details that haven't been decided yet. Which underdog story breaks through. Which match goes to penalties. Which player becomes a meme. The World Cup is a story-generating machine, and the United States, I have come to believe, is a country that will love a story when one finds it.</p>
+    </div>
+    <nav class="essay-nav">
+      <a href="#essay-1">← previous</a>
+      <a href="#essay-3" class="next">next →</a>
+    </nav>
+  </article>
+
+  <article class="essay" id="essay-3">
+    <h2 class="essay-title">why china keeps failing at football</h2>
+    <div class="essay-body">
+      <p>In 2017, the Argentine striker Carlos Tevez signed a two-year contract with Shanghai Shenhua for roughly $40 million per season, briefly making him the highest-paid athlete on the planet. He spent eighteen months in China, scored four league goals, took a now-famous photograph of himself yawning during a match, and went home. The Chinese Super League has been losing him, and players like him, ever since.</p>
+
+      <p>I bring this up because the Tevez moment is the moment most non-Chinese fans remember about Chinese football, and it's also, I think, the perfect distillation of why the project failed. Fifty years from now, China will probably still not have won a World Cup. This isn't a slight. It's a structural fact. And the reasons are interesting enough that I want to spend an essay on them.</p>
+
+      <p>For the last fifteen years, China has tried, very seriously, to become a football country. President Xi is a fan; he has said publicly that his three football wishes are for China to qualify for, host, and eventually win a World Cup. State-level five-year plans have been written for football development. Tens of thousands of football academies were opened across the country. Billionaires were essentially asked, by the state, to buy European clubs and import the expertise. The Super League went on a global spending spree, briefly outstripping the Premier League in transfer fees. Tevez was one of dozens.</p>
+
+      <p>The men's national team, during this period, fell from approximately 75th in the FIFA rankings to approximately 90th. They have qualified for one World Cup in their history, in 2002, where they lost all three matches and scored zero goals.</p>
+
+      <p>The standard Western explanation for this is that China is "too top-down" — that you cannot manufacture a football culture by decree, that the sport requires the kind of organic, neighborhood-level passion that grows slowly from below. There's some truth to this. The countries that produce great footballers tend to be countries where children play in streets, on beaches, in dirt lots — not countries where they're bused to academies after their homework is checked.</p>
+
+      <p>But I think the deeper answer is more uncomfortable. China isn't bad at football because it's too organized. China is bad at football because the Chinese childhood is one of the most demanding in the world, and football is a sport that rewards a kind of unstructured childhood time that the Chinese education system doesn't allow. A talented seven-year-old in São Paulo plays football for six hours a day. A talented seven-year-old in Shanghai is in cram school. By the time the Shanghai kid is sixteen and might be allowed to play, the São Paulo kid has been a professional for two years.</p>
+
+      <p>I write this with mixed feelings, because I'm a product of that system, and the system has done many things very well. China has built world-class engineers, scientists, programmers, financiers. It has not built world-class footballers because world-class footballers come from a different kind of childhood than the one Chinese parents, by and large, are willing to permit. There's no academy that can fix this. The bottleneck isn't the academy. It's the schedule of the average Chinese eight-year-old.</p>
+
+      <p>This is also, I think, why I became a Barcelona fan instead of a fan of any Chinese club. The Chinese Super League, during my childhood, did not give me a team to love. It gave me a team to be embarrassed by — bloated salaries, foreign mercenaries, half-empty stadiums, results that were impossible to take seriously. So I looked elsewhere, like millions of other Chinese fans my age, and found a league that took itself seriously and a team I could lose sleep over.</p>
+
+      <p>What this means for the 2026 World Cup is simple: China won't be there. The men's team failed to qualify, again.</p>
+    </div>
+    <nav class="essay-nav">
+      <a href="#essay-2">← previous</a>
+      <a href="#essay-4" class="next">next →</a>
+    </nav>
+  </article>
+
+  <article class="essay" id="essay-4">
+    <h2 class="essay-title">the away fan economy</h2>
+    <div class="essay-body">
+      <p>In December 2022, an Argentine man named Roberto Bevacqua sold his car, mortgaged a portion of his small business, and flew from Buenos Aires to Doha for the World Cup final. He had no ticket. He went anyway. He watched the match outside Lusail Stadium with several thousand other Argentinians, most of whom had done some version of what he did. After Messi lifted the trophy, Bevacqua was interviewed by a Spanish-language television station. He cried for thirty-four straight seconds and then said, in Spanish, that he would pay this off for the rest of his life and that he would do it again tomorrow.</p>
+
+      <p>I think about Bevacqua often. He represents something the sport produces that almost no other sport produces: a global subculture of people who'll rearrange their entire economic existence for the chance to be in a stadium when their country plays.</p>
+
+      <p>Every World Cup has its traveling fan stories. The Japanese fans who clean the stadium after their team's matches, even after losses, and have done so since 1998, to the point where it's now considered a national tradition. The Icelandic fans who, in 2016, made a country of 330,000 sound louder than England. The Brazilian fans who fill any stadium they enter with the same noise they've been making since the 1950 final at the Maracanã. These aren't casual tourists. They're pilgrims. The World Cup, for the people who travel to it, is closer to a religious event than a sporting one.</p>
+
+      <p>The 2026 tournament is going to test this culture in ways no previous tournament has. For the first time, the World Cup is being held across three countries, with matches spread from Vancouver to Mexico City to Miami. The travel logistics are punishing. A Moroccan fan whose team plays group stage matches in Atlanta, Houston, and Toronto will spend more on internal travel than they would have spent at the entire Qatar tournament. The U.S. visa system, which is its own obstacle course, has been quietly turning away fans from countries the State Department has flagged. There are already reports of Iranian fans being denied entry, of Senegalese journalists having their applications "delayed" past the tournament dates.</p>
+
+      <p>This is going to make the 2026 World Cup the least globally accessible World Cup of the modern era. Which is a strange thing to say about a tournament being held in the world's most powerful country. But it's, I think, true.</p>
+
+      <p>What this means in practice is that the away support at this tournament is going to be heavily regional. Mexico will probably bring 500,000 fans, mostly because they're driving across a border. Argentina, Brazil, and Colombia will each bring large delegations because flights from South America to the U.S. are short and visas are relatively achievable. The Asian and African contingents will be smaller than usual. The European contingent will be smaller than usual, mostly because the cost is brutal — a New York hotel room during the final week is already running fifteen hundred dollars a night.</p>
+
+      <p>This is going to give the tournament an unusual texture. The stadiums in the South are going to feel like Latin American matches. The stadium in Vancouver is going to feel like a Canadian house party. The stadium in Kansas City will be filled with Americans who bought tickets months ago because they wanted to be at "a World Cup match," any World Cup match, and that, too, is a kind of fandom.</p>
+
+      <p>I know who I'm rooting for: Argentina. I haven't been allowed to root for China since I was born, and at some point in my teens Messi quietly became my whole reason for caring about the World Cup at all. This is going to be his last one — he turns 39 a week before the opening match — and I have not, in twelve years, found a more reliable source of joy than watching him play.</p>
+    </div>
+    <nav class="essay-nav">
+      <a href="#essay-3">← previous</a>
+      <a href="#essay-5" class="next">next →</a>
+    </nav>
+  </article>
+
+  <article class="essay" id="essay-5">
+    <h2 class="essay-title">five weeks out: the tournament i've been waiting for my whole life</h2>
+    <div class="essay-body">
+      <p>The 2026 World Cup begins in five weeks. I've been thinking about it, in some form, since I was eight years old.</p>
+
+      <p>The first World Cup I remember clearly was 2010 South Africa, the year of Spain's first title. I was ten. I watched the final in my grandparents' house with my father, who had no particular interest in football but understood that I did, and so sat with me through extra time. I don't remember most of the match. I remember Iniesta's goal. I didn't yet know that the man who scored it played for the team I would later love most. I remember the noise my father made — a small, surprised <em>oh</em>, like he hadn't expected to be moved. I remember thinking that this was the largest thing that had ever been on a television.</p>
+
+      <p>Every World Cup since has been some version of that night. 2014 in Brazil: I was ten, and I stayed up for the Germany–Brazil semifinal and watched in silence while Germany scored seven goals. 2018 in Russia: I was fourteen, in the middle of preparing for the high school entrance exam, and I watched France lift the trophy on a Saturday morning while my parents reminded me, gently, that I had practice tests due Monday. 2022 in Qatar: I was eighteen, in a dorm room, watching Messi finally lift the trophy at 12 p.m. with a roommate. He went back to bed afterward. I had an exam.</p>
+
+      <p>Each of these tournaments was a long way away. They happened in countries I'd never been to, in time zones that punished me, on television sets that belonged to other people. The World Cup, my whole life, has been something I've had to <em>reach for</em>.</p>
+
+      <p>In five weeks, for the first time, the World Cup is coming to me.</p>
+
+      <p>Sixty of the seventy-eight matches will be played in the United States. Eight of them will be played at SoFi Stadium, which is a forty-minute drive from my apartment. I have a ticket — a friend's father works for a sponsor, and there was a lottery, and I got lucky — for the round of 16 match on July 1st. I don't know yet who'll be playing. It'll probably be one of the big European teams against an African qualifier. It almost certainly won't be a team I'd call mine. It doesn't matter. I'll be in a stadium, in person, at a World Cup match. I've wanted this for almost as long as I've wanted anything.</p>
+
+      <p>The strange part, the part I've been trying to find words for in this whole series, is that my parents will (probably?) watch the same tournament from Shanghai at 3 a.m., the way I used to. The time zones have flipped. The roles have flipped. For the first time, I'm the one in the room where the football is, and they're the ones reaching for it across an ocean. My mother sent me a message last week asking what time the opening match would air in China. I did the math: it kicks off at 8 p.m. Eastern on June 11th, which is 8 a.m. on June 12th in Shanghai. She'll watch on her commute. My father will watch from his office. I'll watch from my home, twenty miles from where the match is being played.</p>
+
+      <p>I want to end this football essay series — and also my college academic life — with a famous Chinese football commentator's quote, made after the 2022 World Cup Final, the one Messi finally won:</p>
+
+      <div class="commentator">
+        <p>To all the audience in front of your screens — ask yourselves: the person who watched the World Cup with you four years ago, are you still in touch today? And the wishes you made for yourself four years ago — have they come true?</p>
+        <p>Why do we love football so deeply? Because it not only tells the inspiring stories of players fighting on the field, but also carries the heroic dreams we ordinary people hold in our everyday lives.</p>
+        <p>No matter whether the team you supported tonight won or lost, I hope what you felt this evening gives you the courage to face the real life waiting for you when you open the door tomorrow morning.</p>
+        <p>That is the true beauty of this sport. I love football — and I believe you do too.</p>
+      </div>
+    </div>
+    <nav class="essay-nav">
+      <a href="#essay-4">← previous</a>
+      <a href="#top" class="next">↑ back to top</a>
+    </nav>
+  </article>
+
+  <footer>
+    <span>3 a.m. kickoff</span>
+    <span>shanghai · los angeles</span>
+  </footer>
+
+</body>
+</html>
